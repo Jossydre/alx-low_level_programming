@@ -34,7 +34,7 @@ int main(void)
 
 	for (count = 1; count <= 98; count++)
 	{
-		if (f2o > 0)
+		if (f1o > 0)
 			printf("%lu", f1o);
 		initial0s = numLength(mx) - 1 - numLength(f1);
 
