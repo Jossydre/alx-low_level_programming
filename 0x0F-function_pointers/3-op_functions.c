@@ -8,7 +8,7 @@ int op_mod(int a, int b);
 int (*get_op_func(char *s))(int, int);
 
 /**
- * @op_add - Returns the sum of two numbers
+ * op_add - Returns the sum of two numbers
  * @a: the first number
  * @b: the second number
  * Return: the sum of a and b
