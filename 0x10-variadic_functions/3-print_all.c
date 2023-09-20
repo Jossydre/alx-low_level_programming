@@ -1,87 +1,53 @@
 #include "variadic_functions.h"
-#include <stdarg.h>
 #include <stdio.h>
-/**
- * tchar - prints variadic argument char
- * @list: variadic list
- *
- * Return: No return
- */
-void tchar(va_list list)
-{
-	printf("%c", va_arg(list, int));
-}
-/**
- * tint - prints variadic argument int
- * @list: variadic list
- *
- * Return: No return
- */
-void tint(va_list list)
-{
-	printf("%i", va_arg(list, int));
-}
-/**
- * tfloat - prints variadic argument float
- * @list: variadic list
- *
- * Return: No return
- */
-void tfloat(va_list list)
-{
-	printf("%f", va_arg(list, double));
-}
-/**
- * tstring - prints variadic argument string
- * @list: variadic list
- *
- * Return: No return
- */
-void tstring(va_list list)
-{
-	char *tmp;
+#include <stdarg.h>
 
-	tmp = va_arg(list, char *);
-	if (tmp == 0)
-		tmp = "(nil)";
-	printf("%s", tmp);
-}
 /**
- * print_all - prints anything
- * @format: list of types of arguments passed to the function
- * @...: Arguments Variadic
+ * print_all - prints anything.
+ * @format: a list of types of arguments passed to the function.
  *
- * Return: No return
+ * Return: no return.
  */
 void print_all(const char * const format, ...)
 {
-	ftype fa[] = {
-		{"c", tchar},
-		{"i", tint},
-		{"f", tfloat},
-		{"s", tstring}
-	};
+	va_list dre;
+	unsigned int n = 0, m, o = 0;
+	char *str;
+	const char d_arg[] = "cifs";
 
-	int l1 = 0, l2 = 0;
-	va_list list;
-	char *comma = "";
-
-	va_start(list, format);
-	while (format && format[l1])
+	va_start(dre, format);
+	while (format && format[n])
 	{
-		l2 = 0;
-		while (l2 < 4)
+		m = 0;
+		while (d_arg[m])
 		{
-			if (format[l1] == fa[l2].tc[0])
+			if (format[n] == d_arg[m] && o)
 			{
-				printf("%s", comma);
-				fa[l2].tf(list);
-				comma = ", ";
-			}
-			l2++;
+				printf(", ");
+				break;
+			} m++;
 		}
-		l1++;
+		switch (format[n])
+		{
+			case 'c':
+				printf("%c", va_arg(dre, int)), o = 1;
+				break;
+			case 'i':
+				printf("%d", va_arg(dre, int)), o = 1;
+				break;
+			case 'f':
+				printf("%f", va_arg(dre, double)), o = 1;
+				break;
+			case 's':
+				str = va_arg(dre, char *), o = 1;
+				if (!str)
+				{
+					printf("(nil)");
+					break;
+				}
+				printf("%s", str);
+				break;
+		} m++;
 	}
-	printf("\n");
-	va_end(list);
+	printf("\n"), va_end(dre);
 }
