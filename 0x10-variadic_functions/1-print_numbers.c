@@ -8,30 +8,23 @@
  * @n: number to be printed
  * @...: variadic argument
  *
- * Return: nothing
+ * Return: no return
  */
 void print_numbers(const char *separator, const unsigned int n, ...)
 {
-	unsigned int i;
 	va_list dre;
-
-	if (n == 0)
-	{
-		printf("\n");
-		return;
-	}
-
-	if (separator == 0)
-		separator = "";
+	unsigned int i;
 
 	va_start(dre, n);
 
-	for (i = 0; i < n - 1; i++)
+	for (i = 0; i < n; i++)
 	{
-		printf("%d%s", va_arg(dre, int), separator);
-		printf("%d\n", va_arg(dre, int));
-	}
+		printf("%d", va_arg(dre, int));
+		if (separator && i < n - 1)
 
+			printf("%s", separator);
+	}
+	printf("\n");
 	va_end(dre);
 }
 
